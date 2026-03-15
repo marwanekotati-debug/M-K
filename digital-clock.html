@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; }
+        .clock { display: flex; justify-content: center; align-items: center; margin-top: 100px; }
+        .time { margin: 0 20px; font-size: 32px; }
+    </style>
+</head>
+<body>
+    <div class="clock">
+        <div class="time" id="utc"></div>
+        <div class="time" id="est"></div>
+        <div class="time" id="pst"></div>
+        <div class="time" id="ist"></div>
+    </div>
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const utc = now.toUTCString().split(' ')[4];
+            const est = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+            const pst = new Date(now.toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+            const ist = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
+
+            document.getElementById('utc').innerText = 'UTC: ' + utc;
+            document.getElementById('est').innerText = 'EST: ' + est.toLocaleTimeString();
+            document.getElementById('pst').innerText = 'PST: ' + pst.toLocaleTimeString();
+            document.getElementById('ist').innerText = 'IST: ' + ist.toLocaleTimeString();
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
